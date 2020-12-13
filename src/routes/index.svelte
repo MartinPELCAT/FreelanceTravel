@@ -11,11 +11,11 @@
 		<img
 			src="/japon.jpg"
 			alt="test"
-			class="object-cover object-left h-screen overflow-hidden" />
-		<div class="text-white absolute top-0">Give yourself a break</div>
+			class="object-cover object-right h-screen overflow-hidden" />
+		<div class="text-white absolute top-0 text-4xl font-bold transform translate-x-20 translate-y-14">Freelance Traveler</div>
 	</div>
 
-	<div class="w-2/5 p-6 space-y-4 rounded-l-3xl bg-white -ml-4 ">
+	<div class="w-5/12 p-6 space-y-4 rounded-l-3xl bg-white -ml-6 ">
 		<div class="flex space-x-8">
 			<div class="flex-1" />
 			<NavItem text="Discover" href="/discover" />
