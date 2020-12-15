@@ -1,14 +1,15 @@
-<script lang="ts">
+<script lang="typescript">
 	import CalendarIcon from "../components/icons/CalendarIcon.svelte";
 	import PinIcon from "../components/icons/PinIcon.svelte";
 	import SearchIcon from "../components/icons/SearchIcon.svelte";
 	import UsersIcon from "../components/icons/UsersIcon.svelte";
 	import NavItem from "../components/nav/NavItem.svelte";
 	import Avatar from "../components/shared/Avatar.svelte";
-	import { fly, fade } from "svelte/transition";
+	import { fly } from "svelte/transition";
 	import LocationModal from "../components/modals/LocationModal.svelte";
 	import DatePickerModal from "../components/modals/DatePickerModal.svelte";
 	import ParticipantModal from "../components/modals/ParticipantModal.svelte";
+	import { clickAway } from "../hooks/clickAway";
 	//https://dribbble.com/shots/14677571-Doland-Itinerary-Travel-Planner
 
 	let openSearchBar: boolean = false;
@@ -33,6 +34,10 @@
 		}
 	};
 
+	function handleClickOutside() {
+		openModal = null;
+	}
+
 	const handleSubmit = (e: Event) => {
 		e.preventDefault();
 		console.log(searchBarValue);
@@ -55,51 +60,57 @@
 			Fravel
 		</div>
 		<div
-			class="absolute top-36 left-14 right-20 bg-white rounded-2xl flex p-1 divide-x">
-			<div
-				class="w-1/4 p-4 flex space-x-3 overflow-hidden"
-				on:click={() => switchModal('MODAL_LOCATION')}>
-				<PinIcon />
-				<span> Where are you going ? </span>
-			</div>
-			<div
-				class="w-1/4 p-4 flex space-x-3 overflow-hidden"
-				on:click={() => switchModal('MODAL_DATE')}>
-				<CalendarIcon />
-				<span>Check in - Check out</span>
-			</div>
-			<div
-				class="w-1/4 p-4 flex space-x-3 overflow-hidden"
-				on:click={() => switchModal('POPULTAION_MODAL')}>
-				<UsersIcon />
-				<span> 2 Adults, 0 Children </span>
-			</div>
-			<div
-				role="button"
-				class="w-1/4 bg-gradient-to-tr from-light-blue to-ligher-blue to rounded-r-xl py-4 text-white font-semibold text-center overflow-hidden">
-				Find
-			</div>
-		</div>
-		<div class="top-56 left-14 right-20 absolute p-1 flex">
-			{#if openModal === 'MODAL_LOCATION'}
-				<div
-					class="flex-1 flex"
-					in:fly={{ y: -20, duration: 100, delay: 150 }}>
-					<LocationModal />
+			use:clickAway
+			on:click_outside={handleClickOutside}
+			class="absolute top-36 left-14 right-20">
+			<div class="relative">
+				<div class="bg-white rounded-2xl flex p-1 divide-x">
+					<div
+						class="w-1/4 p-4 flex space-x-3 overflow-hidden"
+						on:click={() => switchModal('MODAL_LOCATION')}>
+						<PinIcon />
+						<span> Where are you going ? </span>
+					</div>
+					<div
+						class="w-1/4 p-4 flex space-x-3 overflow-hidden"
+						on:click={() => switchModal('MODAL_DATE')}>
+						<CalendarIcon />
+						<span>Check in - Check out</span>
+					</div>
+					<div
+						class="w-1/4 p-4 flex space-x-3 overflow-hidden"
+						on:click={() => switchModal('POPULTAION_MODAL')}>
+						<UsersIcon />
+						<span> 2 Adults, 0 Children </span>
+					</div>
+					<div
+						role="button"
+						class="w-1/4 bg-gradient-to-tr from-light-blue to-ligher-blue to rounded-r-xl py-4 text-white font-semibold text-center overflow-hidden">
+						Find
+					</div>
 				</div>
-			{:else if openModal === 'MODAL_DATE'}
-				<div
-					class="flex-1 flex"
-					in:fly={{ y: -20, duration: 100, delay: 150 }}>
-					<DatePickerModal />
+				<div class="top-20 left-0 right-0 absolute p-1 flex">
+					{#if openModal === 'MODAL_LOCATION'}
+						<div
+							class="flex-1 flex"
+							in:fly={{ y: -20, duration: 100, delay: 150 }}>
+							<LocationModal />
+						</div>
+					{:else if openModal === 'MODAL_DATE'}
+						<div
+							class="flex-1 flex"
+							in:fly={{ y: -20, duration: 100, delay: 150 }}>
+							<DatePickerModal />
+						</div>
+					{:else if openModal === 'POPULTAION_MODAL'}
+						<div
+							class="flex-1 flex flex-row-reverse"
+							in:fly={{ y: -20, duration: 100, delay: 150 }}>
+							<ParticipantModal />
+						</div>
+					{/if}
 				</div>
-			{:else if openModal === 'POPULTAION_MODAL'}
-				<div
-					class="flex-1 flex flex-row-reverse"
-					in:fly={{ y: -20, duration: 100, delay: 150 }}>
-					<ParticipantModal />
-				</div>
-			{/if}
+			</div>
 		</div>
 	</div>
 
