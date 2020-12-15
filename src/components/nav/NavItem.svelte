@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     // Props
-    export let text;
-    export let href;
+    export let text: string;
+    export let href: string;
 </script>
 
-<div class="text-lg"><a {href}>{text}</a></div>
+<a {href} class="text-xl">{text}</a>
