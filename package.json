@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "fravel",
+  "description": "Fravel - Location for freelance worker",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
