@@ -40,7 +40,6 @@ export default {
       svelte({
         dev,
         hydratable: true,
-        preprocess: sveltePreprocess(),
         emitCss: true,
         preprocess,
       }),
@@ -100,7 +99,6 @@ export default {
       svelte({
         generate: "ssr",
         hydratable: true,
-        preprocess: sveltePreprocess(),
         dev,
         preprocess,
       }),

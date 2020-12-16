@@ -1,9 +1,7 @@
-type ClickAwayOptions = { enabled: boolean; cb: () => any };
-
-export function clickAway(node) {
+export function clickAway(node, cb: () => void) {
   const handleClick = (event) => {
     if (node && !node.contains(event.target) && !event.defaultPrevented) {
-      node.dispatchEvent(new CustomEvent("click_outside", node));
+      cb();
     }
   };
 

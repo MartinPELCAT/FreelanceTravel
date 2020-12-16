@@ -17,7 +17,7 @@
 	let searchBarValue: string = "";
 
 	type Modal = "MODAL_DATE" | "MODAL_LOCATION" | "POPULTAION_MODAL";
-	let openModal: Modal = null;
+	let openModal: Modal = "MODAL_DATE";
 
 	const onOpenSearchBarClick = () => {
 		openSearchBar = !openSearchBar;
@@ -60,8 +60,7 @@
 			Fravel
 		</div>
 		<div
-			use:clickAway
-			on:click_outside={handleClickOutside}
+			use:clickAway={handleClickOutside}
 			class="absolute top-36 left-14 right-20">
 			<div class="relative">
 				<div class="bg-white rounded-2xl flex p-1 divide-x">
