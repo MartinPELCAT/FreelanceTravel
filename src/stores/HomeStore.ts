@@ -2,7 +2,7 @@ import { addDays } from "date-fns";
 import { writable } from "svelte/store";
 
 type Form = {
-  place: string;
+  location: string;
   dates: {
     start: Date;
     end: Date;
@@ -14,7 +14,7 @@ type Form = {
 };
 
 export const homeStore = writable<Form>({
-  place: "",
+  location: "",
   dates: { start: new Date(), end: addDays(new Date(), 7) },
   participants: { adults: 2, childrens: 0 },
 });

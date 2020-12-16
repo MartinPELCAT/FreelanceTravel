@@ -10,6 +10,7 @@
 	import DatePickerModal from "../components/modals/DatePickerModal.svelte";
 	import ParticipantModal from "../components/modals/ParticipantModal.svelte";
 	import { clickAway } from "../hooks/clickAway";
+	import { homeStore } from "../stores/HomeStore";
 	//https://dribbble.com/shots/14677571-Doland-Itinerary-Travel-Planner
 
 	let openSearchBar: boolean = false;
@@ -65,26 +66,37 @@
 			<div class="relative">
 				<div class="bg-white rounded-2xl flex p-1 divide-x">
 					<div
-						class="w-1/4 p-4 flex space-x-3 overflow-hidden"
+						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('MODAL_LOCATION')}>
 						<PinIcon />
-						<span> Where are you going ? </span>
+						{#if $homeStore.location.length !== 0}
+							<span>{$homeStore.location.length}</span>
+						{:else}<span> Where are you going ? </span>{/if}
 					</div>
 					<div
-						class="w-1/4 p-4 flex space-x-3 overflow-hidden"
+						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('MODAL_DATE')}>
 						<CalendarIcon />
-						<span>Check in - Check out</span>
+						{#if $homeStore.dates}
+							<span>{$homeStore.dates.start.toLocaleDateString()}
+								-
+								{$homeStore.dates.end.toLocaleDateString()}</span>
+						{:else}<span>Check in - Check out</span>{/if}
 					</div>
 					<div
-						class="w-1/4 p-4 flex space-x-3 overflow-hidden"
+						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('POPULTAION_MODAL')}>
 						<UsersIcon />
-						<span> 2 Adults, 0 Children </span>
+						<span>
+							{$homeStore.participants.adults}
+							Adults,
+							{$homeStore.participants.childrens}
+							Children
+						</span>
 					</div>
 					<div
 						role="button"
-						class="w-1/4 bg-gradient-to-tr from-light-blue to-ligher-blue to rounded-r-xl py-4 text-white font-semibold text-center overflow-hidden">
+						class="flex-1 bg-gradient-to-tr from-light-blue to-ligher-blue to rounded-r-xl py-4 text-white font-semibold text-center overflow-hidden">
 						Find
 					</div>
 				</div>

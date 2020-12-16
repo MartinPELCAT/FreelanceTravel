@@ -1,18 +1,10 @@
 <script lang="ts">
-    import { addDays } from "date-fns";
-    let displayedMonth: Date = new Date();
+    import { homeStore } from "../../stores/HomeStore";
 
-    const testHooks = (node: HTMLElement, cb: () => void) => {
-        console.log(node);
-        setTimeout(() => {
-            const ret = cb();
-            console.log(ret);
-        }, 3000);
-    };
+    homeStore.update((value) => ({ ...value }));
+    let displayedMonth: Date = new Date();
 </script>
 
 <div class="w-full bg-white rounded-2xl p-5">
-    <div use:testHooks={() => (displayedMonth = addDays(displayedMonth, 1))}>
-        {displayedMonth.toLocaleDateString()}
-    </div>
+    <div>{displayedMonth.toLocaleDateString()}</div>
 </div>
