@@ -10,7 +10,7 @@
 	import DatePickerModal from "../components/modals/DatePickerModal.svelte";
 	import ParticipantModal from "../components/modals/ParticipantModal.svelte";
 	import { clickAway } from "../hooks/clickAway";
-	import { homeStore } from "../stores/HomeStore";
+	import { participantStore } from "../stores/HomeStore";
 	//https://dribbble.com/shots/14677571-Doland-Itinerary-Travel-Planner
 
 	let openSearchBar: boolean = false;
@@ -18,7 +18,7 @@
 	let searchBarValue: string = "";
 
 	type Modal = "MODAL_DATE" | "MODAL_LOCATION" | "POPULTAION_MODAL";
-	let openModal: Modal = "MODAL_DATE";
+	let openModal: Modal = "POPULTAION_MODAL";
 
 	const onOpenSearchBarClick = () => {
 		openSearchBar = !openSearchBar;
@@ -69,28 +69,28 @@
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('MODAL_LOCATION')}>
 						<PinIcon />
-						{#if $homeStore.location.length !== 0}
+						<!-- {#if $homeStore.location.length !== 0}
 							<span>{$homeStore.location.length}</span>
-						{:else}<span> Where are you going ? </span>{/if}
+						{:else}<span> Where are you going ? </span>{/if} -->
 					</div>
 					<div
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('MODAL_DATE')}>
 						<CalendarIcon />
-						{#if $homeStore.dates}
+						<!-- {#if $homeStore.dates}
 							<span>{$homeStore.dates.start.toLocaleDateString()}
 								-
 								{$homeStore.dates.end.toLocaleDateString()}</span>
-						{:else}<span>Check in - Check out</span>{/if}
+						{:else}<span>Check in - Check out</span>{/if} -->
 					</div>
 					<div
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('POPULTAION_MODAL')}>
 						<UsersIcon />
 						<span>
-							{$homeStore.participants.adults}
+							{$participantStore.adults}
 							Adults,
-							{$homeStore.participants.childrens}
+							{$participantStore.childrens}
 							Children
 						</span>
 					</div>
