@@ -69,19 +69,13 @@
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('MODAL_LOCATION')}>
 						<PinIcon />
-						<!-- {#if $homeStore.location.length !== 0}
-							<span>{$homeStore.location.length}</span>
-						{:else}<span> Where are you going ? </span>{/if} -->
+						<span> Where are you going ? </span>
 					</div>
 					<div
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"
 						on:click={() => switchModal('MODAL_DATE')}>
 						<CalendarIcon />
-						<!-- {#if $homeStore.dates}
-							<span>{$homeStore.dates.start.toLocaleDateString()}
-								-
-								{$homeStore.dates.end.toLocaleDateString()}</span>
-						{:else}<span>Check in - Check out</span>{/if} -->
+						<span>Check in - Check out</span>
 					</div>
 					<div
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"

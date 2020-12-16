@@ -41,8 +41,3 @@ export const participantStore = createParticipantStore();
 
 export const locationStore = writable<string>(undefined);
 export const datesStore = writable<Dates>(undefined);
-
-// export const participantStore = writable<Participants>({
-//   adults: 2,
-//   childrens: 8,
-// });
