@@ -4,7 +4,6 @@
     import { useForm } from "../../hooks/useForm";
     import { schema } from "./schema";
     const { handleSubmit, data, errors } = useForm({ schema });
-    console.log($errors);
     let barRef: HTMLInputElement = null;
     onMount(() => {
         barRef.focus();
@@ -26,5 +25,5 @@
 <!-- <div>{JSON.stringify($data)}</div> -->
 
 {#if $errors.searchContent}
-    <span>{JSON.stringify($errors.searchContent.message)}</span>
+    <span>{JSON.stringify($errors.searchContent)}</span>
 {/if}

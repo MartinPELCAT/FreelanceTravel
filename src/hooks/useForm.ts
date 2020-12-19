@@ -13,7 +13,7 @@ export const useForm = <T>({ schema }: Options<T>): Return<T> => {
   const data = createFormStore<T>();
   const errors = createFormStore<T>();
 
-  let subData;
+  let subData: {} | T;
 
   data.subscribe((val) => {
     subData = val;
@@ -22,18 +22,16 @@ export const useForm = <T>({ schema }: Options<T>): Return<T> => {
   const handleSubmit = (e: Event) => {
     e.preventDefault();
 
-    const validatedSchema = schema.validate(subData);
+    const validatedSchema = schema
+      .options({ abortEarly: false })
+      .validate(subData);
 
-    if (validatedSchema.error) {
-      const key = validatedSchema.error.details[0].context.key;
-      errors.update((err) => {
-        err[key] = validatedSchema.error;
-        console.log(err);
-
-        return err;
+    validatedSchema.error.details.forEach((err) => {
+      errors.update((up) => {
+        up[err.context.key] = err.message.replaceAll('"', "");
+        return up;
       });
-    }
-    if (validatedSchema.errors) errors.set(errors);
+    });
   };
 
   return {
