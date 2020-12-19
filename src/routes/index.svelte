@@ -11,42 +11,30 @@
 	import ParticipantModal from "../components/modals/ParticipantModal.svelte";
 	import { clickAway } from "../hooks/clickAway";
 	import { participantStore } from "../stores/HomeStore";
+	import SearchBar from "../forms/search-bar/SearchBar.svelte";
 	//https://dribbble.com/shots/14677571-Doland-Itinerary-Travel-Planner
 
 	let openSearchBar: boolean = false;
-	let searchBarRef: HTMLInputElement = null;
-	let searchBarValue: string = "";
 
-	type Modal = "MODAL_DATE" | "MODAL_LOCATION" | "POPULTAION_MODAL";
-	let openModal: Modal = "POPULTAION_MODAL";
+	type Modal = "MODAL_DATE" | "MODAL_LOCATION" | "MODAL_POPULTAION";
+	let openModal: Modal = "MODAL_DATE";
 
 	const onOpenSearchBarClick = () => {
 		openSearchBar = !openSearchBar;
-		setTimeout(() => {
-			searchBarRef.focus();
-		}, 10);
 	};
 
 	const switchModal = (modal: Modal) => {
-		if (openModal !== modal) {
-			openModal = modal;
-		} else {
-			openModal = null;
-		}
+		if (openModal !== modal) openModal = modal;
+		else openModal = null;
 	};
 
 	function handleClickOutside() {
 		openModal = null;
 	}
-
-	const handleSubmit = (e: Event) => {
-		e.preventDefault();
-		console.log(searchBarValue);
-	};
 </script>
 
 <svelte:head>
-	<title>FreeLance - Traveler</title>
+	<title>Fravel</title>
 </svelte:head>
 
 <div class="md:max-h-screen overflow-hidden flex bg-gray-200">
@@ -79,7 +67,7 @@
 					</div>
 					<div
 						class="flex-1 p-4 flex space-x-3 overflow-hidden"
-						on:click={() => switchModal('POPULTAION_MODAL')}>
+						on:click={() => switchModal('MODAL_POPULTAION')}>
 						<UsersIcon />
 						<span>
 							{$participantStore.adults}
@@ -107,7 +95,7 @@
 							in:fly={{ y: -20, duration: 100, delay: 150 }}>
 							<DatePickerModal />
 						</div>
-					{:else if openModal === 'POPULTAION_MODAL'}
+					{:else if openModal === 'MODAL_POPULTAION'}
 						<div
 							class="flex-1 flex flex-row-reverse"
 							in:fly={{ y: -20, duration: 100, delay: 150 }}>
@@ -147,19 +135,8 @@
 		{#if openSearchBar}
 			<div
 				class="overflow-hidden absolute left-0 right-0 mx-14 border shadow-sm rounded-xl"
-				transition:fly={{ y: -20, duration: 200 }}
-				on:submit={handleSubmit}>
-				<form class="flex">
-					<input
-						type="text"
-						bind:this={searchBarRef}
-						bind:value={searchBarValue}
-						placeholder="Search"
-						class="h-full w-full p-4 bg-white focus:outline-none placeholder-gray-500" />
-					<button
-						class="m-0.5 px-4 rounded-lg bg-light-blue text-white"
-						type="submit">Search</button>
-				</form>
+				transition:fly={{ y: -20, duration: 200 }}>
+				<SearchBar />
 			</div>
 		{/if}
 	</div>

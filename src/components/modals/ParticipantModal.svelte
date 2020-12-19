@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="py-3 flex justify-between">
-            <span class="font-semibold my-auto text-xl">Childrens</span>
+            <span class="font-semibold my-auto text-xl">Children</span>
             <div class="flex w-32 justify-between text-xl">
                 <button
                     disabled={$participantStore.childrens === 0}
